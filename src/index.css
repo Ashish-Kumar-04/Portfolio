@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+
+:root {
+  --bg-color: #050510;
+  --cyber-cyan: #0ff;
+  --cyber-magenta: #f0f;
+  --cyber-yellow: #ff003c;
+  --grid-color: rgba(0, 255, 255, 0.05);
+  
+  --glass-bg: rgba(10, 10, 20, 0.6);
+  --glass-border: rgba(0, 255, 255, 0.2);
+}
+
+html {
+  font-size: 14px; /* Global scale down for all rem units */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  cursor: crosshair;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center;
+}
+
+h1, h2, h3, h4, h5, .orbitron {
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Antigravity floating effects */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-delay {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(20px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-slow {
+  0% { transform: translateY(0px) translateX(0px); }
+  33% { transform: translateY(-15px) translateX(10px); }
+  66% { transform: translateY(10px) translateX(-15px); }
+  100% { transform: translateY(0px) translateX(0px); }
+}
+
+.float { animation: float 6s ease-in-out infinite; }
+.float-delay { animation: float-delay 7s ease-in-out infinite; }
+.float-slow { animation: float-slow 10s ease-in-out infinite; }
+
+/* Neon Glows */
+.neon-text-cyan {
+  text-shadow: 0 0 5px var(--cyber-cyan), 0 0 10px var(--cyber-cyan), 0 0 20px var(--cyber-cyan);
+}
+
+.neon-text-magenta {
+  text-shadow: 0 0 5px var(--cyber-magenta), 0 0 10px var(--cyber-magenta), 0 0 20px var(--cyber-magenta);
+}
+
+/* Glassmorphism Cyber Cards */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: var(--cyber-cyan);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Cyberpunk glitch effect */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+.glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 rgba(255, 0, 60, 0.7);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.glitch::after {
+  left: -2px;
+  text-shadow: -1px 0 rgba(0, 255, 255, 0.7);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); }
+  20% { clip-path: inset(60% 0 10% 0); }
+  40% { clip-path: inset(40% 0 50% 0); }
+  60% { clip-path: inset(80% 0 5% 0); }
+  80% { clip-path: inset(10% 0 70% 0); }
+  100% { clip-path: inset(30% 0 50% 0); }
+}
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); }
+  20% { clip-path: inset(30% 0 20% 0); }
+  40% { clip-path: inset(80% 0 5% 0); }
+  60% { clip-path: inset(5% 0 80% 0); }
+  80% { clip-path: inset(60% 0 10% 0); }
+  100% { clip-path: inset(20% 0 50% 0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.5);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyber-cyan);
+}
+
+/* Animated Glowing Orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  animation: orb-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes orb-pulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(1.5); opacity: 0.6; }
+}
+
+/* ------------------------------------- */
+/* ORANGE ECLIPSE FLOATING GLASS UPDATE  */
+/* ------------------------------------- */
+
+/* Noise Texture Overlay (Optimized for 60fps) */
+.noise-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.5;
+}
+
+/* Seamless Flow Master Container */
+.portfolio-master-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  /* Removed background, borders, and blur to blend perfectly with page background */
+  background: transparent;
+  border: none;
+  z-index: 5;
+  will-change: transform, opacity;
+  
+  /* Initial Fade-In */
+  opacity: 0;
+  transform: translateY(40px) translateZ(0); 
+  animation: 
+    fade-in-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Removed ::before and ::after pseudo-elements previously used for glowing borders and sweep effects */
+
+.portfolio-glass-content {
+  position: relative;
+  z-index: 10;
+  padding: 1rem 0 3rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  to { opacity: 1; transform: translateY(0) translateZ(0); }
+}
+
+@keyframes float-panel {
+  0% { transform: translateY(0px) translateZ(0); }
+  50% { transform: translateY(-12px) translateZ(0); }
+  100% { transform: translateY(0px) translateZ(0); }
+}
+
+@keyframes breathe-glow-opt {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
+}
+
+@keyframes sweep-reflection {
+  0% { left: -150%; top: -150%; }
+  100% { left: 150%; top: 150%; }
+}
+

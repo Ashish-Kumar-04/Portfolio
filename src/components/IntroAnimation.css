@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #050505;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.7s ease-out;
+  overflow: hidden;
+}
+
+.intro-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stars-background {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+  z-index: -1;
+  animation: bgPulse 4s infinite alternate;
+}
+
+@keyframes bgPulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  z-index: 2;
+}
+
+/* AVATAR PHASE */
+.avatar-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.intro-avatar {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--cyber-cyan, #0ff);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  z-index: 2;
+}
+
+.avatar-ring {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 2px dashed var(--cyber-magenta, #ff00ff);
+  border-radius: 50%;
+  animation: spin 8s linear infinite;
+  box-shadow: 0 0 15px var(--cyber-magenta, #ff00ff);
+  z-index: 1;
+}
+
+/* SIGNATURE PHASE */
+.signature-container {
+  width: 400px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.signature-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.signature-text {
+  font-family: 'Dancing Script', cursive;
+  font-style: italic;
+  font-size: 60px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.letter {
+  fill: transparent;
+  stroke: #ffffff;
+  stroke-width: 1.5px;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: 
+    drawLetter 0.6s ease forwards var(--delay),
+    fillLetter 0.3s ease forwards calc(var(--delay) + 0.6s);
+}
+
+.signature-underline {
+  fill: none;
+  stroke: var(--cyber-cyan, #00ffff);
+  stroke-width: 2px;
+  stroke-dasharray: 250;
+  stroke-dashoffset: 250;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 5px var(--cyber-cyan, #00ffff));
+  /* Start drawing around 2.6s, right as the last letters finish */
+  animation: drawUnderline 0.5s ease forwards 2.6s;
+}
+
+/* TYPING PHASE */
+.typing-container-new {
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeInText 0.5s ease forwards 2.8s;
+}
+
+.typing-text-new {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 5px;
+  background: linear-gradient(90deg, #00ffff, #ffffff, #00ffff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #00ffff;
+  width: 0;
+  text-transform: uppercase;
+  margin: 0 auto;
+  /* Updated for better fit and to prevent clipping on non-monospace font */
+  animation: 
+    typingNew 2s steps(30, end) forwards 3s, 
+    blink-caret-new 0.75s step-end infinite,
+    shimmer 3s linear infinite;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; filter: blur(10px); }
+  100% { transform: scale(1); opacity: 1; filter: blur(0); }
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes drawLetter {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fillLetter {
+  to { fill: #ffffff; stroke: transparent; }
+}
+
+@keyframes drawUnderline {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeInText {
+  to { opacity: 1; }
+}
+
+@keyframes typingNew {
+  from { width: 0 }
+  to { width: 30ch; }
+}
+
+@keyframes blink-caret-new {
+  from, to { border-color: transparent }
+  50% { border-color: var(--cyber-cyan, #00ffff) }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
